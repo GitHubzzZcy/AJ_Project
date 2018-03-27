@@ -1,0 +1,16 @@
+jdbc.driverclass=com.mysql.jdbc.Driver
+#jdbc.url=jdbc:mysql://127.0.0.1:3306/hz?useUnicode=true&amp;characterEncoding=utf-8
+#jdbc.url=jdbc:mysql://10.11.48.78:3306/hz?useUnicode=true&amp;characterEncoding=utf-8
+#jdbc.username=root
+#jdbc.password=123456
+
+jdbc.url=jdbc:mysql://127.0.0.1:3306/test?useUnicode=true&amp;characterEncoding=utf-8
+#jdbc.url=jdbc:mysql://10.11.48.78:3306/hz?useUnicode=true&amp;characterEncoding=utf-8
+jdbc.username=root
+jdbc.password=zero9999
+
+
+jdbc.maxPoolSize=15
+jdbc.minPoolSize=3
+jdbc.initialPoolSize=3
+jdbc.acquireIncrement=3
