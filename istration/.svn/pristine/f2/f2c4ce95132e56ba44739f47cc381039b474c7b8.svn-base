@@ -1,0 +1,11 @@
+eclipse.preferences.version=1
+encoding//config/c3p0.properties=UTF-8
+encoding//config/filepath.properties=UTF-8
+encoding//config/grade.properties=UTF-8
+encoding//config/log4j.properties=UTF-8
+encoding//config/url.properties=UTF-8
+encoding//src/com/henghao/istration/util/GsonUtil.java=UTF-8
+encoding//src/com/henghao/istration/util/PageBean.java=UTF-8
+encoding//src/com/henghao/news/dao/BaseDaoImpl.java=UTF-8
+encoding//src/com/henghao/news/util/GsonUtil.java=UTF-8
+encoding/<project>=UTF-8

@@ -1,0 +1,10 @@
+#评分模块GradeService类调用考勤系统URL
+GRADE_TO_CHECK_WORKFLOW=http\://127.0.0.1\:8082/check_workflow/CI/findAllNumByUserId
+#评分模块GradeService类调用车辆安装GPS硬件数据接口
+GRADE_TO_CARDATA=http\://218.244.129.243\:89/gpsonline/GPSAPI?version\=1
+#百度地图AK
+BAIDU_AK=Fun6r9EE1RPtZ8roRyy7tpM3dL0OQEEl
+#百度地图url
+BAIDU_URL=http\://api.map.baidu.com/geocoder/v2/
+#评分模块调用投诉举报
+GRADE_TO_COMPLAIN=http\://123.206.202.148\:8080/complaints/complain/queryUserGrade

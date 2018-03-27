@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-module
+  type="WEB"
+  name="istration"
+  id="myeclipse.1490672954882"
+  context-root="/istration"
+  j2ee-spec="6.0"
+  archive="istration.war">
+  <attributes>
+    <attribute name="webrootdir" value="WebRoot" />
+  </attributes>
+</project-module>
+

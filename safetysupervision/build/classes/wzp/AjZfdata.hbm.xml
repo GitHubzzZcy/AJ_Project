@@ -1,0 +1,27 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+
+    <class name="com.henghao.entity.wzp.AjZfdata" table="aj_zfdata" schema="hz">
+        <id name="id" column="ID"/>
+        <property name="zflb" column="ZFLB"/>
+        <property name="zfbm" column="ZFBM"/>
+        <property name="zfrs" column="ZFRS"/>
+        <property name="zfry" column="ZFRY"/>
+        <property name="zfdd" column="ZFDD"/>
+        <property name="qy" column="QY"/>
+        <property name="xz" column="XZ"/>
+        <property name="fzr" column="FZR"/>
+        <property name="dh" column="DH"/>
+        <property name="sfyh" column="SFYH"/>
+        <property name="yhsm" column="YHSM"/>
+        <property name="zfjg" column="ZFJG"/>
+        <property name="zfryxx" column="ZFRYXX"/>
+        <property name="zftu" column="ZFTU"/>
+        <property name="zfyx" column="ZFYX"/>
+        <property name="zfsjz" column="ZFSJZ"/>
+        <property name="data" column="data"/>
+    </class>
+</hibernate-mapping>

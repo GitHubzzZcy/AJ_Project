@@ -1,0 +1,69 @@
+#评分标准项
+#一、审批    
+#1．逾期审核       每逾期一天扣0.2分
+GRADE_OVERDUE_SH=0.2
+#2．逾期未审核     每逾期一天扣0.2分
+GRADE_OVERDUE_WSH=0.2
+#3．逾期审批       每逾期一天扣0.2分
+GRADE_OVERDUE_SP=0.2
+#4．逾期未审批     每逾期一天扣0.2分
+GRADE_OVERDUE_WSP=0.2
+#5. 正常审核一次   年度审批数量达到50件以上，每20件加1分
+GRADE_OVERDUE_NO_SHSP=1.0
+#5．违规审核       一次扣1 分
+GRADE_SH_ILLEGAL=1.0
+#6．违规审批       一次扣1 分
+GRADE_SP_ILLEGAL=1.0
+
+#三、考勤     
+#1．旷工            一次扣1分
+GRADE_KQ_KUANGGONG=1.0
+#2．早退            超3次每次扣0.5分
+GRADE_KQ_ZAOTUI_NUM=0
+GRADE_KQ_ZAOTUI=0.2
+#3．无故外出        超5次每次扣0.5分
+GRADE_KQ_WAICHU_NUM=0
+GRADE_KQ_WAICHU=0.5
+#4．迟到            超3次每次扣0.5分
+GRADE_KQ_CHIDAO_NUM=0
+GRADE_KQ_CHIDAO=0.2
+#5．缺卡         	  超3次每次扣0.5分
+GRADE_KQ_QUEKA_NUM=0
+GRADE_KQ_QUEKA=0.2
+#6．无旷工、早退、迟到、缺卡            加2分
+GRADE_KQ_NORMAL=1.0
+
+#四、车辆    
+#1．人车不符       一次扣1分
+GRADE_CL_RENCHE=0.5
+#2．公车私用       一次扣1分
+GRADE_CL_GONGCHE=1.0
+#3．路线偏离       超3次每次扣1分
+GRADE_CL_PIANLI_NUM=3
+GRADE_CL_PIANLI=0.2
+#4．用车超时       超3次每次扣1分
+GRADE_CL_CHAOSHI_NUM=3
+GRADE_CL_CHAOSHI=0.5
+
+
+#五、会议管理   
+GRADE_HY_COUNT=10.0
+#1．未签到         每次扣0.5分
+GRADE_HY_QIANDAO=0.2
+#2．未拍照         超3次每次扣0.5分
+GRADE_HY_PAIZHAO_NUM=3
+GRADE_HY_PAIZHAO=0.1
+#3．未上报         超3次每次扣0.5分
+GRADE_HY_SHANGBAO_NUM=0
+GRADE_HY_SHANGBAO=0.2
+#4．未参加         每次扣1分
+GRADE_HY_CANJIA=0.5
+
+#七、督责          5分
+GRADE_DUZE=3.0
+#八、问责          5分
+GRADE_WENZE=3.0
+
+
+#加分从几月份开始算起
+GRADE_CHECK=201712
