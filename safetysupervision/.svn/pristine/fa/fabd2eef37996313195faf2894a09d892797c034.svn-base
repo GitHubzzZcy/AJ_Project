@@ -1,0 +1,99 @@
+package com.henghao.dao.impl;
+
+import java.util.List;
+
+import org.apache.poi.ss.formula.functions.T;
+import org.springframework.stereotype.Repository;
+
+import com.henghao.dao.EfficiencyImprovementDao;
+@Repository
+public class EfficiencyImprovementDaoImpl extends BaseDao<T> implements EfficiencyImprovementDao{
+	/**
+	 * 人员信息查询
+	 */
+	@Override
+	public List<?> personleSex() {
+		String sql ="select u.SEX,COUNT(*) from to_horizon_dept d,to_horizon_user u, tor_horizon_user_dept ud "
+				+ "where u.ID = ud.USER_ID "
+				+ "AND ud.DEPT_ID = d.ID "
+				+ "AND DEPT_NAME <> '管理员' "
+				+ "GROUP BY SEX ";
+		List<?> list = getSession().createSQLQuery(sql).list();
+	//	System.out.println(list);
+		return list;
+	}
+	/**
+	 * 部门查询
+	 */
+	@Override
+	public List<?> findDept() {
+		String sql ="select DEPT_NAME FROM to_horizon_dept WHERE DEPT_LEVEL <> 0 AND DEPT_LEVEL <> 1";
+		List<?> list = getSession().createSQLQuery(sql).list();
+	//	System.out.println(list);
+		return list;
+	}
+	/**
+	 * 部门人数查询
+	 */
+	@Override
+	public List<?> deptPersonleNum() {
+		String sql ="SELECT g.GROUP_NAME,COUNT(u.`NAME`) FROM to_horizon_user u,tor_horizon_user_group ug,to_horizon_group g "
+				+ "WHERE u.ID = ug.USER_ID "
+				+ "AND ug.WORKGROUP_ID = g.ID "
+				+ "AND g.PARENT_ID='HZ28e7ef21e2b6520121e2f11e7005f6' "
+				+ "GROUP BY g.GROUP_NAME";		
+		List<?> list = getSession().createSQLQuery(sql).list();
+		return list;
+	}
+	
+	/**
+	 * 按时间段查询出差
+	 */
+	@Override
+	public List<?> travelNum(String date1,String date2) {
+		String sql = "SELECT  COUNT(DISTINCT CHUCHAI_RY)AS num FROM aj_chuchai "
+				+ "WHERE AGREE='同意' AND AGREE1='同意' "
+				+ "AND STARTTIME>= '"+date1+"%' "
+				+ "AND STARTTIME <='"+date2+"%'";
+		List<?> list = getSession().createSQLQuery(sql).list();
+		return list;
+	}
+	/**
+	 * 按时间段查询请假
+	 */
+	@Override
+	public List<?> leaveNum(String date1,String date2) {
+		String sql = "SELECT COUNT(DISTINCT `NAME`) AS num FROM aj_qingjia "
+				+ "WHERE AGREE='同意' AND AGREE1='同意' "
+				+ "AND LEAVECAUSE <>'休假' "
+				+ "AND STARTTIME>= '"+date1+"%' "
+				+ "AND STARTTIME <='"+date2+"%'";
+		List<?> list= getSession().createSQLQuery(sql).list();
+		return list;
+	}
+	/**
+	 * 按时间段查询休假
+	 */
+	@Override
+	public List<?> vacationNum(String date1,String date2) {
+		String sql = "SELECT COUNT(DISTINCT `NAME`) AS num FROM aj_qingjia "
+				+ "WHERE AGREE='同意' AND AGREE1='同意' AND "
+				+ "LEAVECAUSE='休假' "
+				+ "AND STARTTIME>= '"+date1+"%' "
+				+ "AND STARTTIME <='"+date2+"%'";
+		List<?> list= getSession().createSQLQuery(sql).list();
+		return list;
+	}
+
+	/**
+	 * 查询出生日期
+	 */
+	@Override
+	public List<String> ageAll() {
+		String sql ="SELECT BIRTH_DATE FROM to_horizon_user ";
+		@SuppressWarnings("unchecked")
+		List<String> list = getSession().createSQLQuery(sql).list();
+		return list;
+	}
+
+}

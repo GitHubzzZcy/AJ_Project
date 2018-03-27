@@ -1,0 +1,76 @@
+package com.henghao.entity;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+/**
+ * 车辆偏离类型表实体
+ * @author longhong
+ *
+ */
+@Entity
+@Table(name = "deviate_type")
+public class DeviateType {
+
+	/**
+	 * 表id
+	 */
+	private Integer id;
+	/**
+	 * 开始时间
+	 */
+	private String startTime;
+	/**
+	 * 结束时间
+	 */
+	private String endTime;
+	/**
+	 * 车牌号
+	 */
+	private String carNo;
+	/**
+	 * 是否偏离
+	 */
+	private String deviateType;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id",unique = true,nullable = false)
+	public Integer getId() {
+		return id;
+	}
+	public void setId(Integer id) {
+		this.id = id;
+	}
+	@Column(name = "startTime",nullable = true)
+	public String getStartTime() {
+		return startTime;
+	}
+	public void setStartTime(String startTime) {
+		this.startTime = startTime;
+	}
+	@Column(name = "endTime",nullable = true)
+	public String getEndTime() {
+		return endTime;
+	}
+	public void setEndTime(String endTime) {
+		this.endTime = endTime;
+	}
+	@Column(name = "carNo",nullable = true)
+	public String getCarNo() {
+		return carNo;
+	}
+	public void setCarNo(String carNo) {
+		this.carNo = carNo;
+	}
+	@Column(name="deviateType",nullable=true)
+	public String getDeviateType() {
+		return deviateType;
+	}
+	public void setDeviateType(String deviateType) {
+		this.deviateType = deviateType;
+	}
+}

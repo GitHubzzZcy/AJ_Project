@@ -1,0 +1,288 @@
+package com.henghao.controller;
+
+import com.henghao.entity.Result;
+import com.henghao.service.IWZPStatisctService;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletResponse;
+
+/**
+ * @author wzp
+ * @description: 统计信息控制层
+ * @create on 2017/12/5.
+ */
+@Controller
+@RequestMapping("/wzpstatisct")
+public class WZPStatisctController {
+
+    // service接口
+    @Resource
+    private IWZPStatisctService statisctService;
+
+
+    /**
+     * 执法案件统计
+     *
+     * @return {@link Result}
+     * @create by wzp on 2017/12/5
+     */
+    @ResponseBody
+    @RequestMapping(value = "/case", produces = "application/json;charset=utf-8")
+    public Result CaseStatisct() {
+        Result result;
+        try {
+            result = statisctService.selectCaseStatisct();
+        } catch (Exception e) {
+            result = new Result(1, "未知错误", null);
+            e.printStackTrace();
+        }
+        return result;
+    }
+
+    /**
+     * 执法详情 - START
+     */
+
+
+    /**
+     * 根据ID查询案件详情
+     *
+     * @param ID 案件ID
+     * @return {@link Result}
+     * @create by wzp on 2017/12/6
+     */
+    @ResponseBody
+    @RequestMapping(value = "/detail/caseByID", produces = "application/json;charset=utf-8")
+    public Result caseDetailById(String ID, HttpServletResponse response) {
+        response.addHeader("Access-Control-Allow-Origin", "*");
+        response.addHeader("Access-Control-Allow-Methods", "GET, POST");
+        response.addHeader("Access-Control-Allow-Headers", "Content-Type");
+        response.addHeader("Access-Control-Max-Age", "1800");//30 min
+        Result result;
+        try {
+            result = statisctService.selectDetailByID(ID);
+        } catch (Exception e) {
+            result = new Result(1, "未知错误", null);
+            e.printStackTrace();
+        }
+        return result;
+    }
+
+    /**
+     * 1. 执法详情 - 正办案件
+     *
+     * @return {@link Result}
+     * @create by wzp on 2017/12/6
+     */
+    @ResponseBody
+    @RequestMapping(value = "/detail/inforce", produces = "application/json;charset=utf-8")
+    public Result inforceDetail(HttpServletResponse response) {
+        response.addHeader("Access-Control-Allow-Origin", "*");
+        response.addHeader("Access-Control-Allow-Methods", "GET, POST");
+        response.addHeader("Access-Control-Allow-Headers", "Content-Type");
+        response.addHeader("Access-Control-Max-Age", "1800");//30 min
+        Result result;
+        try {
+            result = statisctService.selectInforceDetail();
+        } catch (Exception e) {
+            result = new Result(1, "未知错误", null);
+            e.printStackTrace();
+        }
+        return result;
+    }
+
+    /**
+     * 2. 执法详情 - 已办案件
+     *
+     * @return {@link Result}
+     * @create by wzp on 2017/12/6
+     */
+    @ResponseBody
+    @RequestMapping(value = "/detail/closure", produces = "application/json;charset=utf-8")
+    public Result closureDetail(HttpServletResponse response) {
+        response.addHeader("Access-Control-Allow-Origin", "*");
+        response.addHeader("Access-Control-Allow-Methods", "GET, POST");
+        response.addHeader("Access-Control-Allow-Headers", "Content-Type");
+        response.addHeader("Access-Control-Max-Age", "1800");//30 min
+        Result result;
+        try {
+            result = statisctService.selectClosureDetail();
+        } catch (Exception e) {
+            result = new Result(1, "未知错误", null);
+            e.printStackTrace();
+        }
+        return result;
+    }
+
+    /**
+     * 3. 执法详情 - 代办案件
+     *
+     * @return {@link Result}
+     * @create by wzp on 2017/12/6
+     */
+    @ResponseBody
+    @RequestMapping(value = "/detail/commission", produces = "application/json;charset=utf-8")
+    public Result commissionDetail(HttpServletResponse response) {
+        response.addHeader("Access-Control-Allow-Origin", "*");
+        response.addHeader("Access-Control-Allow-Methods", "GET, POST");
+        response.addHeader("Access-Control-Allow-Headers", "Content-Type");
+        response.addHeader("Access-Control-Max-Age", "1800");//30 min
+        Result result;
+        try {
+            result = statisctService.selectCommissionDetail();
+        } catch (Exception e) {
+            result = new Result(1, "未知错误", null);
+            e.printStackTrace();
+        }
+        return result;
+    }
+
+    /**
+     * 4. 执法详情 - 预期未结
+     *
+     * @return {@link Result}
+     * @create by wzp on 2017/12/6
+     */
+    @ResponseBody
+    @RequestMapping(value = "/detail/overdue", produces = "application/json;charset=utf-8")
+    public Result overdueDetail(HttpServletResponse response) {
+        response.addHeader("Access-Control-Allow-Origin", "*");
+        response.addHeader("Access-Control-Allow-Methods", "GET, POST");
+        response.addHeader("Access-Control-Allow-Headers", "Content-Type");
+        response.addHeader("Access-Control-Max-Age", "1800");//30 min
+        Result result;
+        try {
+            result = statisctService.selectOverdueDetail();
+        } catch (Exception e) {
+            result = new Result(1, "未知错误", null);
+            e.printStackTrace();
+        }
+        return result;
+    }
+
+    /**
+     * 5. 执法详情 - 期限过半
+     *
+     * @return {@link Result}
+     * @create by wzp on 2017/12/6
+     */
+    @ResponseBody
+    @RequestMapping(value = "/detail/overhalf", produces = "application/json;charset=utf-8")
+    public Result overHalfDetail(HttpServletResponse response) {
+        response.addHeader("Access-Control-Allow-Origin", "*");
+        response.addHeader("Access-Control-Allow-Methods", "GET, POST");
+        response.addHeader("Access-Control-Allow-Headers", "Content-Type");
+        response.addHeader("Access-Control-Max-Age", "1800");//30 min
+        Result result;
+        try {
+            result = statisctService.selectOverHalfDetail();
+        } catch (Exception e) {
+            result = new Result(1, "未知错误", null);
+            e.printStackTrace();
+        }
+        return result;
+    }
+
+    /**
+     * 6. 执法详情 - 按期办结
+     *
+     * @return {@link Result}
+     * @create by wzp on 2017/12/6
+     */
+    @ResponseBody
+    @RequestMapping(value = "/detail/ontime", produces = "application/json;charset=utf-8")
+    public Result ontimeDetail(HttpServletResponse response) {
+        response.addHeader("Access-Control-Allow-Origin", "*");
+        response.addHeader("Access-Control-Allow-Methods", "GET, POST");
+        response.addHeader("Access-Control-Allow-Headers", "Content-Type");
+        response.addHeader("Access-Control-Max-Age", "1800");//30 min
+        Result result;
+        try {
+            result = statisctService.selectOntimeDetail();
+        } catch (Exception e) {
+            result = new Result(1, "未知错误", null);
+            e.printStackTrace();
+        }
+        return result;
+    }
+
+    /**
+     * 7. 执法详情 - 逾期办结
+     *
+     * @return {@link Result}
+     * @create by wzp on 2017/12/6
+     */
+    @ResponseBody
+    @RequestMapping(value = "/detail/overtime", produces = "application/json;charset=utf-8")
+    public Result overtimeDetail(HttpServletResponse response) {
+        response.addHeader("Access-Control-Allow-Origin", "*");
+        response.addHeader("Access-Control-Allow-Methods", "GET, POST");
+        response.addHeader("Access-Control-Allow-Headers", "Content-Type");
+        response.addHeader("Access-Control-Max-Age", "1800");//30 min
+        Result result;
+        try {
+            result = statisctService.selectOvertimeDetail();
+        } catch (Exception e) {
+            result = new Result(1, "未知错误", null);
+            e.printStackTrace();
+        }
+        return result;
+    }
+
+
+    /**
+     * 执法详情 - END
+     */
+
+    /**
+     * 统计本月部门执法情况排名
+     * @return {@link Result}
+     * @create by wzp on 2017/12/6
+     */
+    @ResponseBody
+    @RequestMapping(value = "/rank/month", produces = "application/json;charset=utf-8")
+    public Result rankMonth(HttpServletResponse response){
+        response.addHeader("Access-Control-Allow-Origin", "*");
+        response.addHeader("Access-Control-Allow-Methods", "GET, POST");
+        response.addHeader("Access-Control-Allow-Headers", "Content-Type");
+        response.addHeader("Access-Control-Max-Age", "1800");//30 min
+        Result result;
+        try {
+            result = statisctService.selectMonthRank();
+        } catch (Exception e) {
+            result = new Result(1, "未知错误", null);
+            e.printStackTrace();
+        }
+        return result;
+    }
+
+    /**
+     * 远东数据库测试查询
+     * @return {@link Result}
+     * @create by wzp on 2017/12/6
+     */
+    @ResponseBody
+    @RequestMapping(value = "/find/yd/byName", produces = "application/json;charset=utf-8")
+    public Result selectYD(String ename,HttpServletResponse response){
+        response.addHeader("Access-Control-Allow-Origin", "*");
+        response.addHeader("Access-Control-Allow-Methods", "GET, POST");
+        response.addHeader("Access-Control-Allow-Headers", "Content-Type");
+        response.addHeader("Access-Control-Max-Age", "1800");//30 min
+        Result result;
+        try {
+            result = statisctService.selectDataBaseFromYD(ename);
+        } catch (Exception e) {
+            result = new Result(1, "未知错误", null);
+            e.printStackTrace();
+        }
+        return result;
+    }
+
+
+
+
+
+}

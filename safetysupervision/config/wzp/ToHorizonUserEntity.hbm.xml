@@ -1,0 +1,68 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+
+    <class name="com.henghao.entity.wzp.ToHorizonUserEntity" table="to_horizon_user" schema="hz">
+        <id name="id" column="ID"/>
+        <property name="name" column="NAME"/>
+        <property name="LOGIN_NAME" column="LOGIN_NAME"/>
+        <property name="email" column="EMAIL"/>
+        <property name="active" column="ACTIVE"/>
+        <property name="ORDER_NO" column="ORDER_NO"/>
+        <property name="USER_STYLE" column="USER_STYLE"/>
+        <property name="DELETE_TIME" column="DELETE_TIME"/>
+        <property name="REGISTER_TIME" column="REGISTER_TIME"/>
+        <property name="password" column="PASSWORD"/>
+        <property name="firstname" column="FIRSTNAME"/>
+        <property name="givenname" column="GIVENNAME"/>
+        <property name="EMP_NUM" column="EMP_NUM"/>
+        <property name="certificate" column="CERTIFICATE"/>
+        <property name="sex" column="SEX"/>
+        <property name="BIRTH_DATE" column="BIRTH_DATE"/>
+        <property name="HAS_IMAGE" column="HAS_IMAGE"/>
+        <property name="telephone" column="TELEPHONE"/>
+        <property name="cellphone" column="CELLPHONE"/>
+        <property name="CERT_TYPE" column="CERT_TYPE"/>
+        <property name="CERT_NO" column="CERT_NO"/>
+        <property name="postcode" column="POSTCODE"/>
+        <property name="address" column="ADDRESS"/>
+        <property name="ip" column="IP"/>
+        <property name="comments" column="COMMENTS"/>
+        <property name="SEC_ID" column="SEC_ID"/>
+        <property name="engname" column="ENGNAME"/>
+        <property name="position" column="POSITION"/>
+        <property name="fax" column="FAX"/>
+        <property name="dn" column="DN"/>
+        <property name="WORK_DESC" column="WORK_DESC"/>
+        <property name="f1" column="F1"/>
+        <property name="f2" column="F2"/>
+        <property name="f3" column="F3"/>
+        <property name="f4" column="F4"/>
+        <property name="f5" column="F5"/>
+        <property name="f6" column="F6"/>
+        <property name="f7" column="F7"/>
+        <property name="f8" column="F8"/>
+        <property name="f9" column="F9"/>
+        <property name="f10" column="F10"/>
+        <property name="TELEPHONE_HOME" column="TELEPHONE_HOME"/>
+        <property name="OTHER_POSITION" column="OTHER_POSITION"/>
+        <property name="LDAP_UNID" column="LDAP_UNID"/>
+        <property name="birthDate" column="birthDate"/>
+        <property name="certNo" column="certNo"/>
+        <property name="certType" column="certType"/>
+        <property name="deleteTime" column="deleteTime"/>
+        <property name="empNum" column="empNum"/>
+        <property name="hasImage" column="hasImage"/>
+        <property name="ldapUnid" column="ldapUnid"/>
+        <property name="loginName" column="loginName"/>
+        <property name="orderNo" column="orderNo"/>
+        <property name="otherPosition" column="otherPosition"/>
+        <property name="registerTime" column="registerTime"/>
+        <property name="secId" column="secId"/>
+        <property name="telephoneHome" column="telephoneHome"/>
+        <property name="userStyle" column="userStyle"/>
+        <property name="workDesc" column="workDesc"/>
+    </class>
+</hibernate-mapping>

@@ -1,7 +1,11 @@
+/applicationContext-redis.xml
 /applicationContext.xml
-/c3p0.properties
+/baidu.properties
 /com/
 /jdbc.properties
 /log4j.properties
+/org/
+/redis.properties
 /spring-mvc.xml
 /spring-orm.xml
+/wzp/

@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+
+    <class name="com.henghao.entity.wzp.AjSjz" table="aj_sjz" schema="hz">
+        <id name="id" column="ID"/>
+        <property name="parentid" column="PARENTID"/>
+        <property name="sm" column="SM"/>
+        <property name="time" column="TIME"/>
+        <property name="clzt" column="CLZT"/>
+        <property name="fj" column="FJ"/>
+        <property name="xdwssj" column="XDWSSJ"/>
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,187 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:jee="http://www.springframework.org/schema/jee"
+	xsi:schemaLocation="http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.0.xsd
+		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd 
+		http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee.xsd"
+			>
+
+	<!-- 加载数据库配置文件 -->
+	<!-- <context:property-placeholder location="classpath:jdbc.properties"/> -->
+	
+	
+	<!-- 使用spring自带的占位符替换功能 -->
+	<bean
+		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<!-- 允许JVM参数覆盖 -->
+		<property name="systemPropertiesModeName" value="SYSTEM_PROPERTIES_MODE_OVERRIDE" />
+		<!-- 忽略没有找到的资源文件 -->
+		<property name="ignoreResourceNotFound" value="true" />
+		<!-- 配置资源文件 -->
+		<property name="locations">
+			<list>
+				<value>classpath:jdbc.properties</value>
+				<!-- <value>classpath:filepath.properties</value> -->
+				<value>classpath:redis.properties</value>
+			</list>
+		</property>
+	</bean>
+	
+	
+	<!-- 数据库连接配置 -->
+	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
+		<!-- 驱动 -->
+		<property name="driverClass" value="${jdbc.driverclass}"></property>
+		<!-- 连接地址 -->
+		<property name="jdbcUrl" value="${jdbc.url}"></property>
+		<!-- 连接用户名 -->
+		<property name="user" value="${jdbc.username}"></property>
+		<!-- 密码 -->
+		<property name="password" value="${jdbc.password}"></property>
+		<!-- 连接池中拥有的最大连接数，如果获得新连接时总数超过这个值 则不会再获取新连接，而是等待其他连接释放，所以这个值有可能会设的很大，default：15-->
+		<property name="maxPoolSize" value="${jdbc.maxPoolSize}"></property>
+		<!-- 连接池保持的最小连接数，default：3 -->
+		<property name="minPoolSize" value="${jdbc.minPoolSize}"></property>
+		<!-- 连接池初始化时创建的连接数，default：3 -->
+		<property name="initialPoolSize" value="${jdbc.initialPoolSize}"></property>
+		<!-- 连接池在无空闲连接可用时一次性创建的新数据库连接数，default：3 -->
+		<property name="acquireIncrement" value="${jdbc.acquireIncrement}"></property>
+	</bean>
+	<!-- mongodb数据库连接配置 -->
+	<!-- <bean id="mongoTemplet" class="com.mongodb.client.MongoClientTemplet">
+		<property name="factory">
+			<bean class="com.mongodb.client.MongoORMFactoryBean">
+				<property name="dataSource">
+					<bean class="com.mongodb.client.MongoDataSource">
+						<property name="nodeList" value="127.0.0.1:27017"/>
+						<property name="dbName" value="data_cage"/>
+						<property name="userName" value="shixianchao"/>
+						<property name="password" value="123456"/>
+						<property name="connectionsPerHost" value=""/>
+						<property name="threadsAllowedToBlock" value=""/>
+						<property name="connectionTimeOut" value=""/>
+						<property name="maxPetryTime" value=""/>
+						<property name="socketTimeOut" value=""/>
+					</bean>
+				</property>
+				这个应该就是配置mql的文件的位置了吧
+				<property name="configLocations">
+					<list>
+						<value>classpath:mql/mongo-mql.xml</value>
+					</list>
+				</property>
+			</bean>
+		</property>
+	</bean> -->
+	
+	<!-- 配置hibernate  session工厂 -->
+	<bean id="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+		<!-- 引入配置数据源 -->
+
+		<property name="dataSource" ref="dataSource"></property>
+		<!-- 加载hibernate的映射文件 -->
+		<!--
+		 <property name="mappingDirectoryLocations">
+			<list>
+				<value>classpath:../config/wzp/hibernate.cfg.xml</value>
+			</list>
+		</property> -->
+		<!-- 加载hibernate的类，此处用的是注解的方式，如果用的是配置文件方式，则请注释-->
+		<property name="packagesToScan">
+			<list>
+				<value>com.henghao.entity</value>
+			</list>
+		</property>  
+		<property name="hibernateProperties">
+			<props>
+				<!-- 数据库的方言 -->
+				<prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
+				<!-- 配置打印sql语句 -->
+				<prop key="hibernate.show_sql">false</prop>
+				<!-- 配置格式化sql语句 -->
+				<prop key="hibernate.format_sql">true</prop>
+				<!-- 配置数据库表的生成方式 -->
+				<prop key="hibernate.hbm2ddl.auto">update</prop>
+				<!-- 配置是否开启二级缓存 -->
+				<prop key="hibernate.cache.use_second_level_cache">false</prop>
+				<!-- spring整合hibernate需要用currentsession -->
+				<prop key="hibernate.current_session_context_class">org.springframework.orm.hibernate4.SpringSessionContext</prop>
+			</props>
+		</property>
+	</bean>
+	
+	<!-- 配置hibernate事务管理 -->
+	<bean id="transactionManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+		<!-- 管理hibernate的session工厂 -->
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	
+	<!-- 配置事务管理，非声明式（非注解）的方式 -->
+	<tx:advice id="txAdvice" transaction-manager="transactionManager">
+		<tx:attributes>
+			<tx:method name="add*" propagation="REQUIRED"/>
+			<tx:method name="save*" propagation="REQUIRED"/>
+			<tx:method name="update*" propagation="REQUIRED"/>
+			<tx:method name="executeSqlUpdate*" propagation="REQUIRED"/>
+			<tx:method name="modify*" propagation="REQUIRED"/>
+			<tx:method name="delete*" propagation="REQUIRED"/>
+			<!-- 除了以上方法的其他方法都为只读方法 -->
+			<tx:method name="*" read-only="true"/>
+		</tx:attributes>
+	</tx:advice>
+	
+	<!-- 配置aop，spring的事务管理是通过aop来实现的，如果不配置，则不能够获取到事物 -->
+	<aop:config expose-proxy="true">
+		<!-- 对业务逻辑层实施事物 -->
+		<aop:pointcut id="txPointcut" expression="execution(* com.henghao.dao.*.*(..))" />
+		<!-- Advisor定义，切入点和通知分别为txPointcout、txAdvice -->
+		<aop:advisor advice-ref="txAdvice" pointcut-ref="txPointcut"/>
+	</aop:config>
+	
+</beans>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

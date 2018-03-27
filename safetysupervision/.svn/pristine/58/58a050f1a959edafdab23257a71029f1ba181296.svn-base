@@ -1,0 +1,28 @@
+package com.henghao.service;
+
+import com.henghao.entity.Result;
+import com.henghao.entity.wzp.ToHorizonUserEntity;
+import com.henghao.entity.wzp.TorHorizonUserDeptEntity;
+
+/**
+ * 用户service接口
+ * create by wzp on 2017/11/28
+ */
+public interface IWZPUserService {
+
+    /**
+     * APP端 - 修改用户信息
+     * @param userEntity
+     * @param userDept
+     * @return
+     */
+    Result updatePersonal(ToHorizonUserEntity userEntity, TorHorizonUserDeptEntity userDept);
+
+    /**
+     * APP端 - 根据用户ID查询用户所属部门ID
+     * 用于APP做用户信息修改时调用。
+     * @param userId 用户ID
+     * @return 部门ID
+     */
+    Result selectDeptIdByUserId(String userId);
+}

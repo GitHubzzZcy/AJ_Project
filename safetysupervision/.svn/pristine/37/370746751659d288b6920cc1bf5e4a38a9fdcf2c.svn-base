@@ -1,0 +1,31 @@
+package com.henghao.dao.yuandong.impl;
+
+import com.henghao.dao.yuandong.IYDTestDao;
+import com.henghao.vo.yuandong.EntVo;
+import org.hibernate.SessionFactory;
+import org.hibernate.transform.Transformers;
+import org.springframework.stereotype.Repository;
+
+import javax.annotation.Resource;
+import java.util.List;
+
+/**
+ * @author wzp
+ * @description: 实现类
+ * @create on 2017/12/7.
+ */
+@Repository("ydDao")
+public class YDTestDaoImpl implements IYDTestDao {
+
+    @Resource(name = "sessionFactory_orcl")
+    SessionFactory sessionFactory;
+
+
+    @Override
+    public List<EntVo> getEmpVoList(String sql, Class voClass) {
+
+         return  sessionFactory.openSession().createSQLQuery(sql)
+                .setResultTransformer(Transformers.aliasToBean(voClass)).list();
+
+    }
+}

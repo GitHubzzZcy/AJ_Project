@@ -1,0 +1,32 @@
+package com.henghao.util;
+
+import java.lang.reflect.Field;
+
+public class ObjectUtil {
+
+
+    /**
+     * 将数据库信息同步到新实体类中
+     * @param oldEntity 数据库
+     * @param newEntity 接收类
+     * @return
+     * @throws Exception
+     */
+    public static Object updateNew(Object oldEntity, Object newEntity)
+            throws Exception {
+        Field[] oFields = oldEntity.getClass().getDeclaredFields();
+        Field[] nFields = newEntity.getClass().getDeclaredFields();
+        for (int i = 0; i < oFields.length; i++) {
+            Field of = oFields[i];
+            Field nf = nFields[i];
+
+            of.setAccessible(true);
+            nf.setAccessible(true);
+            if ((of.equals(nf)) && (nf.get(newEntity) != null)) {
+                of.set(oldEntity, nf.get(newEntity));
+            }
+            oFields[i] = of;
+        }
+        return oldEntity;
+    }
+}

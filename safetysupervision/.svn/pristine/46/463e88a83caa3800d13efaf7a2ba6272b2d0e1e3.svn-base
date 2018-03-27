@@ -1,0 +1,101 @@
+package com.henghao.service.impl;
+
+import com.henghao.dao.IWZPUserDao;
+import com.henghao.entity.Result;
+import com.henghao.entity.wzp.ToHorizonUserEntity;
+import com.henghao.entity.wzp.TorHorizonUserDeptEntity;
+import com.henghao.service.IWZPUserService;
+import com.henghao.util.ObjectUtil;
+import org.apache.commons.lang.StringEscapeUtils;
+import org.springframework.stereotype.Service;
+
+import javax.annotation.Resource;
+
+/**
+ * @author wzp
+ * @description: 用户service实现类
+ * @create 2017/11/28.
+ */
+@Service("userService")
+public class WZPUserServiceImpl implements IWZPUserService {
+
+    // dao接口
+    @Resource
+    IWZPUserDao<ToHorizonUserEntity> userDao;
+
+    /*
+     * 修改人员信息
+     * create by wzp on 2017/11/28
+     */
+    public Result updatePersonal(ToHorizonUserEntity userEntity, TorHorizonUserDeptEntity userDept) {
+        // 返回对象
+        Result result = null;
+
+        // 用户输入的包装对象非空
+        if (userEntity == null || userDept == null) {
+            return new Result(1, "系统繁忙", null);
+        }
+        // 属性
+        String id = userEntity.getId();
+        String deptId = userDept.getDeptId();
+        // 非空验证
+        if (id == null || "".equals(id) || deptId == null || "".equals(deptId)) {
+            return new Result(1, "用户ID为空", null);
+        }
+
+        // 防止SQL注入
+        String eID = StringEscapeUtils.escapeSql(id);
+        String eDeptId = StringEscapeUtils.escapeSql(deptId);
+
+        // 根据ID查询数据库
+        ToHorizonUserEntity personal = userDao.getById(eID);
+        // 返回对象非空
+        if (personal == null) {
+            result = new Result(1, "查无此人", null);
+            return result;
+        }
+        try {
+            // 将数据库信息同步到对象上，再做修改。
+            ToHorizonUserEntity user = (ToHorizonUserEntity) ObjectUtil.updateNew(personal, userEntity);
+            // 修改用户信息
+            this.userDao.update(user);
+            // 修改：用户-部门中间表信息
+            String sql_update = "UPDATE tor_horizon_user_dept SET DEPT_ID = '" + eDeptId + "' WHERE USER_ID = '" + eID + "' ";
+            this.userDao.executeSqlUpdate(sql_update);
+            result = new Result(0, "个人资料修改成功", null);
+        } catch (Exception e) {   // 修改失败
+            e.printStackTrace();
+            result = new Result(1, "系统繁忙", null);
+        }
+        return result;
+
+    }
+
+    /*
+    * 根据用户ID查询用户所属部门ID
+    *
+    * */
+    public Result selectDeptIdByUserId(String userId) {
+        // 返回对象
+        Result result = null;
+
+        // 非空验证
+        if (userId == null || "".equals(userId) ) {
+            return new Result(1, "用户ID为空", null);
+        }
+
+        // 防止SQL注入
+        String eID = StringEscapeUtils.escapeSql(userId);
+        System.out.println("eid:"+eID);
+        // 查询用户-部门中间表
+        String sql_select = "SELECT DEPT_ID FROM tor_horizon_user_dept WHERE USER_ID ='"+eID+"' ";
+        String deptId;
+        try {
+            deptId = this.userDao.getString(sql_select);
+        }catch (Exception e){
+            return  new Result(1, "系统发生错误，请稍后再试", null);
+        }
+        // 成功返回
+        return  new Result(0, "查询成功", deptId);
+    }
+}
