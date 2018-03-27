@@ -1,0 +1,7 @@
+/applicationContext.xml
+/c3p0.properties
+/com/
+/jdbc.properties
+/log4j.properties
+/spring-mvc.xml
+/spring-orm.xml

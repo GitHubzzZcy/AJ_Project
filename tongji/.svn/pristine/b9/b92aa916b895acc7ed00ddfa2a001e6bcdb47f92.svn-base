@@ -1,0 +1,8 @@
+jdbc.driverclass=oracle.jdbc.driver.OracleDriver
+jdbc.url=jdbc\:oracle\:thin\:@222.85.178.147\:1521\:orcl
+jdbc.username=gyzhaj
+jdbc.password=123456
+jdbc.maxPoolSize=30
+jdbc.minPoolSize=9
+jdbc.initialPoolSize=9
+jdbc.acquireIncrement=9
