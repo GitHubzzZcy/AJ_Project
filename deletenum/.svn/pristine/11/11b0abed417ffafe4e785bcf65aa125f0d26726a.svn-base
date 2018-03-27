@@ -1,0 +1,136 @@
+package com.henghao.controller;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.henghao.entity.Result;
+import com.henghao.service.AttendanceDetailsService;
+
+/**
+ * 规定日期考勤统计
+ * @author 龙宏
+ *
+ */
+@Controller
+@RequestMapping("/attendance")
+public class AttendanceDetailsAction {
+	@Autowired
+	private AttendanceDetailsService attendanceDetailsService;
+	
+	/**
+	 * 规定日期出差情况查询
+	 * @param date
+	 * @return
+	 * @throws Exception
+	 */
+	@ResponseBody
+	@RequestMapping("/evection")
+	public Result evection(String date) throws Exception{
+		return attendanceDetailsService.evection(date);
+	}
+	/**
+	 * 规定日期请假情况
+	 * @param date
+	 * @return
+	 * @throws Exception
+	 */
+	@ResponseBody
+	@RequestMapping("/leave")
+	public Result leave(String date)throws Exception{
+		return attendanceDetailsService.leave(date);
+	}
+	/**
+	 * 规定日期迟到情况
+	 * @param date
+	 * @return
+	 * @throws Exception
+	 */
+	@ResponseBody
+	@RequestMapping("/late")
+	public Result late(String date)throws Exception{
+		return attendanceDetailsService.late(date);
+	}
+	
+	/**
+	 * 规定日期早退情况
+	 * @param date
+	 * @return
+	 * @throws Exception
+	 */
+	@ResponseBody
+	@RequestMapping("/early")
+	public Result early(String date) throws Exception {
+		return attendanceDetailsService.early(date);
+	}
+	
+	/**
+	 * 规定日期未打卡情况
+	 * @param date
+	 * @return
+	 * @throws Exception
+	 */
+	@ResponseBody
+	@RequestMapping("/noSignIn")
+	public Result noSignIn(String date)throws Exception{
+		return attendanceDetailsService.noSignIn(date);
+	}
+	
+	/**
+	 * 规定日期打卡情况
+	 * @param date
+	 * @return
+	 * @throws Exception
+	 */
+	@ResponseBody
+	@RequestMapping("/signedIn")
+	public Result signedIn(String date) throws Exception{
+		return attendanceDetailsService.signedIn(date);
+	}
+	/**
+	 * 按月份查询迟到记录
+	 * @param date
+	 * @return
+	 * @throws Exception
+	 */
+	@ResponseBody
+	@RequestMapping("/monthLate")
+	public Result monthLate(String date)throws Exception{
+		return attendanceDetailsService.monthLate(date);
+	}
+	
+	/**
+	 *按月份查询早退记录
+	 * @param date
+	 * @return
+	 * @throws Exception
+	 */
+	@ResponseBody
+	@RequestMapping("/monthEarly")
+	public Result monthEarly(String date) throws Exception {
+		return attendanceDetailsService.monthEarly(date);
+	}
+	/**
+	 *按月份查询缺卡记录
+	 * @param date
+	 * @return
+	 * @throws Exception
+	 */
+	@ResponseBody
+	@RequestMapping("/missingCard")
+	public Result missingCard(String date) throws Exception {
+		return attendanceDetailsService.missingCard(date);
+	}
+	/**
+	 *按月份查询旷工记录
+	 * @param date
+	 * @return
+	 * @throws Exception
+	 */
+	@ResponseBody
+	@RequestMapping("/absenteeism")
+	public Result absenteeism(String date)throws Exception{
+		return attendanceDetailsService.absenteeism(date);
+	}
+}

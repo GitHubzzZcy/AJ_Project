@@ -1,0 +1,72 @@
+package com.henghao.service.impl;
+
+import java.io.File;
+import java.io.IOException;
+import java.util.List;
+
+import javax.annotation.Resource;
+
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
+
+import com.henghao.dao.IUserEventTrackDao;
+import com.henghao.entity.UserEventTrackEntity;
+import com.henghao.service.IUserEventTrackService;
+import com.henghao.util.DateUtils;
+
+@Service("userEventTrackService")
+public class UserEventTrackServiceImpl implements IUserEventTrackService{
+
+	@Value("${USER_EVENT_TRACK}")
+	private String USER_EVENT_TRACK;
+	@Resource
+	private IUserEventTrackDao userEventTrackDao;
+	
+	@Override
+	public Object addEntity(String userId, String eventName, String eventAddress, String eventTime, String eventEndTime, String eventDate,
+			MultipartFile[] files) throws IllegalStateException, IOException {
+		UserEventTrackEntity userEventTrackEntity = new UserEventTrackEntity();
+		userEventTrackEntity.setUserId(userId);
+		userEventTrackEntity.setEventName(eventName);
+		userEventTrackEntity.setEventAddress(eventAddress);
+		userEventTrackEntity.setEventTime(eventTime);
+		userEventTrackEntity.setEventEndTime(eventEndTime);
+		userEventTrackEntity.setEventDate(eventDate);
+		
+		File file = new File(USER_EVENT_TRACK);
+		if(!file.exists()) {
+			file.mkdirs();
+		}
+		String eventImagePath = null;
+		if(files != null) {
+			StringBuffer sb = new StringBuffer();
+			String UID = userId.substring(userId.length()-3, userId.length());
+			int i = 0;
+			for (MultipartFile multipartFile : files) {
+				String filename = multipartFile.getOriginalFilename();
+				filename = filename.substring(filename.lastIndexOf("."));
+				String path = USER_EVENT_TRACK + "/" + DateUtils.getCurrentDate("yyyyMMdd-HHmmss")+ UID + i + filename;
+				String dbimagename = DateUtils.getCurrentDate("yyyyMMdd-HHmmss") + UID + i + filename;
+				File imgepath = new File(path);
+				multipartFile.transferTo(imgepath);
+				sb.append(dbimagename + ",");
+				i++;
+			}
+			
+			if(sb.length() > 0) {
+				eventImagePath = sb.substring(0, sb.length()-1);
+			}
+		}
+		userEventTrackEntity.setEventImagePath(eventImagePath);
+		userEventTrackDao.add(userEventTrackEntity);
+		return null;
+	}
+
+	@Override
+	public Object queryByUserIdAndDate(String userId, String eventDate) {
+		List<UserEventTrackEntity> dbEntity = userEventTrackDao.queryByUserIdAndDate(userId, eventDate);
+		return dbEntity;
+	}
+
+}
