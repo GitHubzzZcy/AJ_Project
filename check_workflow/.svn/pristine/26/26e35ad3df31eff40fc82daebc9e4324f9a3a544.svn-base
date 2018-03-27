@@ -1,0 +1,9 @@
+jdbc.url=jdbc\:mysql\://10.11.48.78\:3306/hz
+jdbc.driverclass=com.mysql.jdbc.Driver
+jdbc.password=henghao123
+jdbc.username=root
+
+jdbc.maxPoolSize=50
+jdbc.minPoolSize=15
+jdbc.initialPoolSize=5
+jdbc.acquireIncrement=5

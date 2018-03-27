@@ -1,0 +1,288 @@
+package com.henghao.controller;
+
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletResponse;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.henghao.entity.Checking;
+import com.henghao.entity.ExcelEntity;
+import com.henghao.entity.Result;
+import com.henghao.service.ICheckingService;
+import com.henghao.util.DateUtils;
+import com.henghao.util.FileUtils;
+import com.henghao.util.PageBaen;
+/**
+ * 
+ * 考勤信息controller
+ * @author 
+ *
+ */
+@Controller
+@RequestMapping(value="/CI")
+public class CheckingController {
+
+	@Resource
+	private ICheckingService service;	
+	//签到，带上checking
+	@RequestMapping(value="/addChecking",produces="application/json;charset=UTF-8")
+	@ResponseBody
+	public Result addChecking(Checking checking){
+		Result result = service.addChecking(checking);
+		return result;
+	}
+
+	//查询指定用户一个月的考勤信息
+	@RequestMapping(value="/findMonthAllByUserName",produces="application/json;charset=UTF-8")
+	@ResponseBody
+	public Result findAllByUserName(String date,PageBaen pageBaen,String user){
+		//获取月份的第一天和最后一天,时间格式如2011-01
+		String startDate=DateUtils.getStardate(date);
+		String endDate=DateUtils.getEnddate(date);		
+		Result result = service.findAllByUserName(startDate, endDate, pageBaen, user);
+		return result;
+	}
+
+	// 查询指定一个月内的签到记录
+	@RequestMapping(value="/findQdListByUserId",produces="application/json;charset=UTF-8")
+	@ResponseBody
+	public Result findQdListByUserId(String userId,String date,PageBaen pageBaen){
+		//获取月份的第一天和最后一天,时间格式如2011-01
+		String startDate=DateUtils.getStardate(date);
+		String endDate=DateUtils.getEnddate(date);
+		Result result = service.findQdListByUserId(userId,startDate, endDate, pageBaen);
+		return result;
+	}
+
+	// 查询指定一个月内的请假记录
+	@RequestMapping(value="/findQjListByUserId",produces="application/json;charset=UTF-8")
+	@ResponseBody
+	public Result findQjListByUserId(String userId,String date,PageBaen pageBaen){
+		//获取月份的第一天和最后一天,时间格式如2011-01
+		String startDate=DateUtils.getStardate(date);
+		String endDate=DateUtils.getEnddate(date);
+		Result result = service.findQjListByUserId(userId,startDate, endDate, pageBaen);
+		return result;
+	}
+
+	// 查询指定一个月内的出差记录
+	@RequestMapping(value="/findCcListByUserId",produces="application/json;charset=UTF-8")
+	@ResponseBody
+	public Result findCcListByUserId(String userId,String date,PageBaen pageBaen){
+		//获取月份的第一天和最后一天,时间格式如2011-01
+		String startDate=DateUtils.getStardate(date);
+		String endDate=DateUtils.getEnddate(date);
+		Result result = service.findCcListByUserId(userId,startDate, endDate, pageBaen);
+		return result;
+	}
+
+	// 查询指定一个月内的补签记录
+	@RequestMapping(value="/findBqListByUserId",produces="application/json;charset=UTF-8")
+	@ResponseBody
+	public Result findBqListByUserId(String userId,String date,PageBaen pageBaen){
+		//获取月份的第一天和最后一天,时间格式如2011-01
+		String startDate=DateUtils.getStardate(date);
+		String endDate=DateUtils.getEnddate(date);
+		Result result = service.findBqListByUserId(userId,startDate, endDate, pageBaen);
+		return result;
+	}
+
+	// 查询指定一个月内的迟到记录
+	@RequestMapping(value="/findCdListByUserId",produces="application/json;charset=UTF-8")
+	@ResponseBody
+	public Result findCdListByUserId(String userId,String date,PageBaen pageBaen){
+		//获取月份的第一天和最后一天,时间格式如2011-01
+		String startDate=DateUtils.getStardate(date);
+		String endDate=DateUtils.getEnddate(date);
+		Result result = service.findCdListByUserId(userId,startDate, endDate, pageBaen);
+		return result;
+	}
+
+	// 查询指定一个月内的早退记录
+	@RequestMapping(value="/findZtListByUserId",produces="application/json;charset=UTF-8")
+	@ResponseBody
+	public Result findZtListByUserId(String userId,String date,PageBaen pageBaen){
+		//获取月份的第一天和最后一天,时间格式如2011-01
+		String startDate=DateUtils.getStardate(date);
+		String endDate=DateUtils.getEnddate(date);
+		Result result = service.findZtListByUserId(userId,startDate, endDate, pageBaen);
+		return result;
+	}
+
+	// 查询指定一个月内的旷工记录
+	@RequestMapping(value="/findKgListByUserId",produces="application/json;charset=UTF-8")
+	@ResponseBody
+	public Result findKgListByUserId(String userId,String date,PageBaen pageBaen){
+		//获取月份的第一天和最后一天,时间格式如2011-01
+		String startDate=DateUtils.getStardate(date);
+		String endDate=DateUtils.getEnddate(date);
+		Result result = service.findKgListByUserId(userId,startDate, endDate, pageBaen);
+		return result;
+	}
+
+	// 查询指定一个月内的缺卡记录
+	@RequestMapping(value="/findQkListByUserId",produces="application/json;charset=UTF-8")
+	@ResponseBody
+	public Result findQkListByUserId(String userId,String date,PageBaen pageBaen){
+		//获取月份的第一天和最后一天,时间格式如2011-01
+		String startDate=DateUtils.getStardate(date);
+		String endDate=DateUtils.getEnddate(date);
+		Result result = service.findQkListByUserId(userId,startDate, endDate, pageBaen);
+		return result;
+	}
+
+	// 查询指定一个月内的所有人考勤信息
+	@RequestMapping(value="/findAllListByDate",produces="application/json;charset=UTF-8")
+	@ResponseBody
+	public Result findAllListByDate(String date,PageBaen pageBaen){
+		//获取月份的第一天和最后一天,时间格式如2011-01
+		String startDate=DateUtils.getStardate(date);
+		String endDate=DateUtils.getEnddate(date);
+		Result result = service.findAllListByDate(startDate, endDate, pageBaen);
+		return result;
+	}
+
+	//查询某个人的指定时间段的考勤数目统计
+	@RequestMapping(value="/findAllNumByUserId",produces="application/json;charset=UTF-8")
+	@ResponseBody
+	public Result findAllNumByUserId(String date,String userId){		
+		Result result = service.findAllNumByUserId(date, userId,new PageBaen());
+		return result;
+	}
+
+	//按姓名模糊查询指定一个月内的人的考勤信息
+	@RequestMapping(value="/findAllListByDateAndUseName",produces="application/json;charset=UTF-8")
+	@ResponseBody
+	public Result findAllListByDateAndUseName(String date,String userName,PageBaen pageBaen){
+		//获取月份的第一天和最后一天,时间格式如2011-01
+		String startDate=DateUtils.getStardate(date);
+		String endDate=DateUtils.getEnddate(date);
+		Result result = service.findAllListByDateAndUseName(startDate, endDate, userName, pageBaen);
+		return result;
+	}
+
+	//由签到ID查询指定的签到记录
+	@RequestMapping(value="/findCkByCkid",produces="application/json;charset=UTF-8")
+	@ResponseBody
+	public Result findCkByCkid(String id){
+		Result result = service.findCkByCkid(id);		
+		return result;
+	}
+	//按部门查询指定一个月内的部门人的考勤信息	
+	@RequestMapping(value="/findAllListByDateAndDept",produces="application/json;charset=UTF-8")
+	@ResponseBody
+	public Result findAllListByDateAndDept(String date,String dept,PageBaen pageBaen){
+		String startDate=DateUtils.getStardate(date);
+		String endDate=DateUtils.getEnddate(date);
+		Result result = service.findAllListByDateAndDept(startDate, endDate, dept, pageBaen);	
+		return result;
+	}
+
+	//按用户查询年出勤情况
+	@RequestMapping(value="/findYearKqByUserId",produces="application/json;charset=UTF-8")
+	@ResponseBody
+	public Result findYearKqByUserId(String date,String userId,PageBaen pageBaen){
+		Result result = service.findAllNumByUserId(date, userId,pageBaen);
+		return result;
+	}
+
+	//按用户id查询当天的考勤信息
+	@RequestMapping(value="/findByUserId",produces="application/json;charset=UTF-8")
+	@ResponseBody
+	public Result findByUserId(String userId,String date){
+
+		Result result = service.findByUserId(userId,date);
+
+		return result;
+	}
+
+	//查询统计当天的人员信息统计
+	@RequestMapping(value="/findCurrentCk",produces="application/json;charset=UTF-8")
+	@ResponseBody
+	public Result findCurrentCk(String date){
+		Result result = service.findCurrentCk(date);
+		return result;
+	}
+
+	//查询三重一大统计（重大问题抉择、重要干部任免、重大项目安排、大额资金使用）的申请总数、已审批、待审批数。
+	@RequestMapping(value="/findSZYD",produces="application/json;charset=UTF-8")
+	@ResponseBody
+	public Result findSZYD(String date){	
+		Result result = service.findSZYD(date);
+		return result;
+	}
+
+	//查询所有人部门，姓名，考勤率，本月正常打卡次数，经纬度
+	@RequestMapping(value="/findck_seatByDept",produces="application/json;charset=UTF-8")
+	@ResponseBody
+	public Result findck_seatByDept(String date,String dept){
+		Result result = service.findck_seatByDept(date,dept);
+		return result;
+	}
+
+	//查询最新轮播图片
+	@RequestMapping(value="/findImg",produces="application/json;charset=UTF-8")
+	@ResponseBody
+	public Result findImg(String condition){
+		Result result = service.findImg(condition);
+		return result;
+	}
+	//下载周报考勤信息
+	@SuppressWarnings("unchecked")
+	@RequestMapping(value="/downloadWeekCk",produces="application/json;charset=UTF-8")
+	@ResponseBody
+	public Result downloadWeekCk(HttpServletResponse response,String startDate,String endDate){
+		//如果不传参默认打印当月的
+		if(startDate==null || startDate.equals("") || endDate==null || endDate.equals("")){
+			String date=DateUtils.getCurrentDate("yyyy-MM");
+			startDate=DateUtils.getStardate(date);
+			endDate=DateUtils.getEnddate(date);
+		}		
+		PageBaen pageBaen=new PageBaen();
+		//考勤统计
+		Result resultck = service.findAllListByDate(startDate, endDate, pageBaen);		
+		Map<String ,Object> mapck=(Map<String, Object>) resultck.getData();		
+		List<Object[]> cktongjilist=(List<Object[]>) mapck.get("list");
+		
+		//签到记录
+		Map<String,Object> map=service.findAllRecord(startDate, endDate);
+		List<Object[]> cklist=(List<Object[]>) map.get("cklist");	
+		List<Object[]> bqlist=(List<Object[]>) map.get("bqlist");	
+		List<Object[]> cclist=(List<Object[]>) map.get("cclist");	
+		List<Object[]> qjlist=(List<Object[]>) map.get("qjlist");		
+		String title="时间段："+startDate+"至"+endDate;
+		try {
+			List<ExcelEntity> elist= new ArrayList<ExcelEntity>();
+			elist.add( new ExcelEntity(cktongjilist, new String[]{"用户id","姓名","部门","出勤天数","请假天数"}, "统计"+title, "weeklyreport"));
+			elist.add( new ExcelEntity(cklist, new String[]{"姓名","日期","签到时间","签退时间"}, "签到记录"+title, "weeklyreport"));	
+			elist.add( new ExcelEntity(bqlist, new String[]{"姓名","开始日期","结束日期","补签时间段","补签类型","补签描述"}, "补签记录"+title, "weeklyreport"));	
+			elist.add( new ExcelEntity(cclist, new String[]{"姓名","开始日期","结束日期","出差天数","出差描述"}, "出差记录"+title, "weeklyreport"));	
+			elist.add( new ExcelEntity(qjlist, new String[]{"姓名","开始日期","结束日期","请假天数","请假描述"}, "请假记录"+title, "weeklyreport"));	
+			
+						
+			FileUtils.downloadExcel(response,elist);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return new Result(0, "下载成功", null);
+	}
+	
+}
+
+
+
+
+
+
+
+
+
+
