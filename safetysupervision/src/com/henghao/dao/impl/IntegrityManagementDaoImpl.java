@@ -41,7 +41,7 @@ public class IntegrityManagementDaoImpl extends BaseDao<ReturnCar> implements In
 	 */
 	@Override
 	public List<Object> personnelInformation(String deptName) {
-		String sql = "select u.NAME,u.POSITION,u.TELEPHONE,h.SAVE_NAME,h.EXTENTION,dept_Name from to_horizon_dept d "
+		String sql = "select u.NAME,u.POSITION,u.TELEPHONE,h.SAVE_NAME,h.EXTENTION,dept_Name,u.ORDER_NO from to_horizon_dept d "
 				+ "INNER JOIN tor_horizon_user_dept ud  ON ud.DEPT_ID = d.ID "
 				+ "INNER JOIN to_horizon_user u ON u.ID = ud.USER_ID "
 				+ "LEFT JOIN ta_horizon_info h ON u.ID = h.OBJECT_ID "
@@ -58,7 +58,7 @@ public class IntegrityManagementDaoImpl extends BaseDao<ReturnCar> implements In
 	 */
 	@Override
 	public List<Object> personnelInfo(String deptName, String name) {
-		String sql = "select u.NAME,u.POSITION,u.TELEPHONE,h.SAVE_NAME,h.EXTENTION,dept_Name from to_horizon_dept d "
+		String sql = "select u.NAME,u.POSITION,u.TELEPHONE,h.SAVE_NAME,h.EXTENTION,dept_Name,u.ORDER_NO from to_horizon_dept d "
 				+ "INNER JOIN tor_horizon_user_dept ud  ON ud.DEPT_ID = d.ID "
 				+ "INNER JOIN to_horizon_user u ON u.ID = ud.USER_ID "
 				+ "LEFT JOIN ta_horizon_info h ON u.ID = h.OBJECT_ID "
@@ -88,7 +88,7 @@ public class IntegrityManagementDaoImpl extends BaseDao<ReturnCar> implements In
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Object> personnelInfoAll(String deptName, String name) {
-		String sql = "select u.NAME,u.POSITION,u.TELEPHONE,h.SAVE_NAME,h.EXTENTION,dept_Name from to_horizon_dept d "
+		String sql = "select u.NAME,u.POSITION,u.TELEPHONE,h.SAVE_NAME,h.EXTENTION,dept_Name, u.ORDER_NO from to_horizon_dept d "
 				+ "INNER JOIN tor_horizon_user_dept ud  ON ud.DEPT_ID = d.ID "
 				+ "INNER JOIN to_horizon_user u ON u.ID = ud.USER_ID "
 				+ "LEFT JOIN ta_horizon_info h ON u.ID = h.OBJECT_ID "

@@ -122,6 +122,7 @@ public class IntegrityManagementServiceImpl implements IntegrityManagementServic
 					jsonObject.put("fileName", fileName);
 				}
 				jsonObject.put("deptName", objs[5] == null ? "" : String.valueOf(objs[5]));
+				jsonObject.put("orderNo", objs[6] == null ? "" : String.valueOf(objs[6]));
 				jsonArray.add(jsonObject);
 			}
 		}
