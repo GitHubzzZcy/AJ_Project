@@ -8,6 +8,9 @@ class A {
     public A() {
         System.out.print("2");
     }
+    public void ta() {
+    	System.out.print("3");
+    }
 }
  
 class B extends A{
@@ -19,14 +22,17 @@ class B extends A{
     public B() {
         System.out.print("b");
     }
+    public void ta() {
+    	System.out.print("c");
+    }
 }
  
 public class Hello {
  
     public static void main(String[] args) {
         A ab = new B();
-        
-       ab = new B();
+        ab.ta();
+       ab = new B(); //1a2bc2b
     }
  
 }
